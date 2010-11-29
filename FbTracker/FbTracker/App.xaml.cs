@@ -26,7 +26,19 @@ namespace FbTracker
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage();
+            if (e.InitParams.Count > 0)
+            {
+
+                string sessionKey = e.InitParams["sessionKey"];
+                string sessionSecret = e.InitParams["sessionSecret"];
+                int expires = Convert.ToInt32(e.InitParams["expires"]);
+                int userId = Convert.ToInt32(e.InitParams["userId"]);
+                this.RootVisual = new MainPage(sessionKey, sessionSecret, expires, userId);
+            }
+            else
+            {
+                this.RootVisual = new MainPage();
+            }
         }
 
         private void Application_Exit(object sender, EventArgs e)

@@ -60,6 +60,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook.Silverlight">
+      <HintPath>..\..\Components\FacebookToolKit\3.1.0\Facebook.Silverlight.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -72,6 +75,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DTO\CurrentUser.cs" />
+    <Compile Include="FbAccess.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

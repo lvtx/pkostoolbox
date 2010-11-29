@@ -33,7 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\..\Components\FacebookToolKit\3.1.0\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web">
+      <HintPath>..\..\Components\FacebookToolKit\3.1.0\Facebook.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -53,6 +61,7 @@
   <ItemGroup>
     <Content Include="ClientBin\FbTracker.xap" />
     <Content Include="Default.aspx" />
+    <Content Include="fblogin.js" />
     <Content Include="FbTrackerTestPage.aspx" />
     <Content Include="FbTrackerTestPage.html" />
     <Content Include="Silverlight.js" />
@@ -63,6 +72,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="xd_receiver.htm" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -72,6 +82,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FbAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
