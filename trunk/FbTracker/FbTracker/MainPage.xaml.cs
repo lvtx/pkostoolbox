@@ -9,14 +9,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using FbTracker.DTO;
 
 namespace FbTracker
 {
     public partial class MainPage : UserControl
     {
+        private readonly FbAccess _dataAccess;
         public MainPage()
         {
             InitializeComponent();
+            
+             
+        }
+        public MainPage(string sessionKey, string sessionSecret, int expires, int userId)
+            : this()
+        {
+            _dataAccess = new FbAccess(sessionKey, sessionSecret, expires, userId);
+            tbName.Text = CurrentUser.UserId.ToString();
         }
     }
 }
