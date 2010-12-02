@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using FbTracker.DTO;
+using System.Threading;
 
 namespace FbTracker
 {
@@ -26,7 +27,9 @@ namespace FbTracker
             : this()
         {
             _dataAccess = new FbAccess(sessionKey, sessionSecret, expires, userId);
-            tbName.Text = CurrentUser.UserId.ToString();
+
+            tbName.Text = FbAccess.CurrentUser.uid.ToString() + " Name: " + FbAccess.CurrentUser.name;
+            
         }
     }
 }
