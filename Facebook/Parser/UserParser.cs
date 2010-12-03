@@ -55,30 +55,15 @@ namespace Facebook.Parser
 
 				if (!String.IsNullOrEmpty(XmlHelper.GetNodeText(node, "sex")))
 				{
-                    try
-                    {
-                        user.Sex = (Gender)Enum.Parse(typeof(Gender), XmlHelper.GetNodeText(node, "sex"), true);
-                    }
-                    catch 
-                    {
-                        user.Sex = Gender.Unknown; 
-                    }
-
+					user.Sex = (Gender) Enum.Parse(typeof (Gender), XmlHelper.GetNodeText(node, "sex"), true);
 				}
 
 				if (!String.IsNullOrEmpty(XmlHelper.GetNodeText(node, "relationship_status")))
 				{
-                    try
-                    {
-                        user.RelationshipStatus =
-                            (RelationshipStatus)
-                            Enum.Parse(typeof(RelationshipStatus),
-                                       XmlHelper.GetNodeText(node, "relationship_status").Replace(" ", "").Replace("'", ""), true);
-                    }
-                    catch
-                    {
-                        user.RelationshipStatus = RelationshipStatus.Unknown;
-                    }
+					user.RelationshipStatus =
+						(RelationshipStatus)
+						Enum.Parse(typeof (RelationshipStatus),
+						           XmlHelper.GetNodeText(node, "relationship_status").Replace(" ", "").Replace("'", ""), true);
 				}
 
                 //if (!String.IsNullOrEmpty(XmlHelper.GetNodeText(node, "political")))
@@ -119,10 +104,6 @@ namespace Facebook.Parser
 
 				//work_history
 				user.WorkHistory = WorkParser.ParseWorkHistory(nodeElement.GetElementsByTagName("work_history")[0]);
-
-                //MZZ email proxy
-                user.Email = XmlHelper.GetNodeText(node, "email");
-
 			}
 			return user;
 		}
