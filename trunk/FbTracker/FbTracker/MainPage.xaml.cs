@@ -9,14 +9,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using FbTracker.DTO;
 using System.Threading;
+using Facebook.API;
 
 namespace FbTracker
 {
     public partial class MainPage : UserControl
     {
-        private readonly FbAccess _dataAccess;
         public MainPage()
         {
             InitializeComponent();
@@ -26,10 +25,14 @@ namespace FbTracker
         public MainPage(string sessionKey, string sessionSecret, int expires, int userId)
             : this()
         {
-            _dataAccess = new FbAccess(sessionKey, sessionSecret, expires, userId);
 
-            tbName.Text = FbAccess.CurrentUser.uid.ToString() + " Name: " + FbAccess.CurrentUser.name;
-            
+            var api = new FacebookAPI();
+            api.ApplicationKey = "9a703a2552981903b1c9a431804af826";
+            api.SessionKey = sessionKey;
+            api.Secret = sessionSecret;
+            api.IsDesktopApplication = false;
+            api.ConnectToFacebook();
+
         }
     }
 }

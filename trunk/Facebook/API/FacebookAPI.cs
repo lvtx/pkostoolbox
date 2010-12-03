@@ -618,7 +618,7 @@ namespace Facebook.API
 			                    	{
 			                    		{"method", "facebook.fql.query"},
 			                    		{"query", String.Format(CultureInfo.InvariantCulture, "{0}{1}{2}",
-			                    			"SELECT uid, first_name, last_name, name, pic_small, pic_big, pic_square, pic, affiliations, profile_update_time, timezone, religion, birthday, sex, hometown_location, meeting_sex, meeting_for, relationship_status, significant_other_id, political, current_location, activities, interests, is_app_user, music, tv, movies, books, quotes, about_me, hs_info, education_history, work_history, notes_count, wall_count, status, email FROM user WHERE uid IN (", userIds, ")")
+			                    			"SELECT uid, first_name, last_name, name, pic_small, pic_big, pic_square, pic, affiliations, profile_update_time, timezone, religion, birthday, sex, hometown_location, meeting_sex, meeting_for, relationship_status, significant_other_id, political, current_location, activities, interests, is_app_user, music, tv, movies, books, quotes, about_me, hs_info, education_history, work_history, notes_count, wall_count, status FROM user WHERE uid IN (", userIds, ")")
 			                    			}
 			                    	};
 

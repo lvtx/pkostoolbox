@@ -357,7 +357,6 @@ namespace Facebook.Entity
 			get { return _status; }
 		}
 
-        public string Email { get; set; }
 		#endregion Properties
 
 		public User()
@@ -376,7 +375,6 @@ namespace Facebook.Entity
 			AboutMe = string.Empty;
 			SignificantOtherId = string.Empty;
 			Religion = string.Empty;
-            Email = string.Empty;
 		}
 	}
 }
