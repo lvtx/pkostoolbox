@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A722C9E-9BE8-47D1-9DF8-4F46C63F7847}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FbTracker</RootNamespace>
+    <AssemblyName>FbTracker</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>FbTracker.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>FbTracker.App</SilverlightAppEntry>
+    <TestPageFileName>FbTrackerTestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
+    <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>false</UsePlatformExtensions>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>
+    </LinkedServerProject>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Facebook\API\API.cs">
+      <Link>Facebook\API\API.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\API\DataStoreAPI.cs">
+      <Link>Facebook\API\DataStoreAPI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\API\FacebookAPI.cs">
+      <Link>Facebook\API\FacebookAPI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Admin.cs">
+      <Link>Facebook\Entity\Admin.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Album.cs">
+      <Link>Facebook\Entity\Album.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\DataAssociation.cs">
+      <Link>Facebook\Entity\DataAssociation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\DataAssociationInfo.cs">
+      <Link>Facebook\Entity\DataAssociationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\DataAssociationType.cs">
+      <Link>Facebook\Entity\DataAssociationType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\DataObject.cs">
+      <Link>Facebook\Entity\DataObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\EventUser.cs">
+      <Link>Facebook\Entity\EventUser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\FacebookEvent.cs">
+      <Link>Facebook\Entity\FacebookEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Group.cs">
+      <Link>Facebook\Entity\Group.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\GroupUser.cs">
+      <Link>Facebook\Entity\GroupUser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\HigherEducation.cs">
+      <Link>Facebook\Entity\HigherEducation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\HighSchool.cs">
+      <Link>Facebook\Entity\HighSchool.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Listing.cs">
+      <Link>Facebook\Entity\Listing.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Location.cs">
+      <Link>Facebook\Entity\Location.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\MarketPlace.cs">
+      <Link>Facebook\Entity\MarketPlace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Network.cs">
+      <Link>Facebook\Entity\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Notifications.cs">
+      <Link>Facebook\Entity\Notifications.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\ObjectPropertyInfo.cs">
+      <Link>Facebook\Entity\ObjectPropertyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\ObjectPropertyType.cs">
+      <Link>Facebook\Entity\ObjectPropertyType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\ObjectTypeInfo.cs">
+      <Link>Facebook\Entity\ObjectTypeInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Page.cs">
+      <Link>Facebook\Entity\Page.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Photo.cs">
+      <Link>Facebook\Entity\Photo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\PhotoTag.cs">
+      <Link>Facebook\Entity\PhotoTag.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\PublishImage.cs">
+      <Link>Facebook\Entity\PublishImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\SchoolHistory.cs">
+      <Link>Facebook\Entity\SchoolHistory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Status.cs">
+      <Link>Facebook\Entity\Status.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\UploadPhotoResult.cs">
+      <Link>Facebook\Entity\UploadPhotoResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\User.cs">
+      <Link>Facebook\Entity\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Entity\Work.cs">
+      <Link>Facebook\Entity\Work.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\Errors.cs">
+      <Link>Facebook\Exceptions\Errors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookException.cs">
+      <Link>Facebook\Exceptions\FacebookException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookInvalidAlbumException.cs">
+      <Link>Facebook\Exceptions\FacebookInvalidAlbumException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookInvalidFqlSyntaxException.cs">
+      <Link>Facebook\Exceptions\FacebookInvalidFqlSyntaxException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookInvalidObjectTypeNameException.cs">
+      <Link>Facebook\Exceptions\FacebookInvalidObjectTypeNameException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookInvalidUserException.cs">
+      <Link>Facebook\Exceptions\FacebookInvalidUserException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookInvalidUserExtendedPermission.cs">
+      <Link>Facebook\Exceptions\FacebookInvalidUserExtendedPermission.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookNotVisibleException.cs">
+      <Link>Facebook\Exceptions\FacebookNotVisibleException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookRequestLimitException.cs">
+      <Link>Facebook\Exceptions\FacebookRequestLimitException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookServiceUnavailableException.cs">
+      <Link>Facebook\Exceptions\FacebookServiceUnavailableException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookSigningException.cs">
+      <Link>Facebook\Exceptions\FacebookSigningException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookTimeoutException.cs">
+      <Link>Facebook\Exceptions\FacebookTimeoutException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Exceptions\FacebookUnknownException.cs">
+      <Link>Facebook\Exceptions\FacebookUnknownException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\AdminParser.cs">
+      <Link>Facebook\Parser\AdminParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\AlbumParser.cs">
+      <Link>Facebook\Parser\AlbumParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\DataAssociationParser.cs">
+      <Link>Facebook\Parser\DataAssociationParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\DataObjectParser.cs">
+      <Link>Facebook\Parser\DataObjectParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\EventUserParser.cs">
+      <Link>Facebook\Parser\EventUserParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\FacebookEventParser.cs">
+      <Link>Facebook\Parser\FacebookEventParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\GroupParser.cs">
+      <Link>Facebook\Parser\GroupParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\GroupUserParser.cs">
+      <Link>Facebook\Parser\GroupUserParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\LocationParser.cs">
+      <Link>Facebook\Parser\LocationParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\MarketPlaceParser.cs">
+      <Link>Facebook\Parser\MarketPlaceParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\NetworkParser.cs">
+      <Link>Facebook\Parser\NetworkParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\NotificationsParser.cs">
+      <Link>Facebook\Parser\NotificationsParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\ObjectPropertyInfoParser.cs">
+      <Link>Facebook\Parser\ObjectPropertyInfoParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\ObjectTypeInfoParser.cs">
+      <Link>Facebook\Parser\ObjectTypeInfoParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\PageParser.cs">
+      <Link>Facebook\Parser\PageParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\PhotoParser.cs">
+      <Link>Facebook\Parser\PhotoParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\PhotoTagParser.cs">
+      <Link>Facebook\Parser\PhotoTagParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\ProfileParser.cs">
+      <Link>Facebook\Parser\ProfileParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\SchoolHistoryParser.cs">
+      <Link>Facebook\Parser\SchoolHistoryParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\UserParser.cs">
+      <Link>Facebook\Parser\UserParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Parser\WorkParser.cs">
+      <Link>Facebook\Parser\WorkParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Types\Enums.cs">
+      <Link>Facebook\Types\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Utility\DateHelper.cs">
+      <Link>Facebook\Utility\DateHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Utility\EnumHelper.cs">
+      <Link>Facebook\Utility\EnumHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Utility\ImageHelper.cs">
+      <Link>Facebook\Utility\ImageHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Utility\StringHelper.cs">
+      <Link>Facebook\Utility\StringHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Facebook\Utility\XMLHelper.cs">
+      <Link>Facebook\Utility\XMLHelper.cs</Link>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AppManifest.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Facebook\Properties\Resources.resx">
+      <Link>Facebook\Properties\Resources.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
