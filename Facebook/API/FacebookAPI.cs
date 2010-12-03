@@ -1,4 +1,7 @@
-using Facebook.Forms;
+#if SILVERLIGHT
+#else
+    using Facebook.Forms;
+#endif
 
 namespace Facebook.API
 {

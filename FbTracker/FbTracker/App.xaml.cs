@@ -31,7 +31,7 @@ namespace FbTracker
 
                 string sessionKey = e.InitParams["sessionKey"];
                 string sessionSecret = e.InitParams["sessionSecret"];
-                int expires = Convert.ToInt32(e.InitParams["expires"]);
+                DateTime expires = Convert.ToDateTime(e.InitParams["expires"]);
                 int userId = Convert.ToInt32(e.InitParams["userId"]);
                 this.RootVisual = new MainPage(sessionKey, sessionSecret, expires, userId);
             }

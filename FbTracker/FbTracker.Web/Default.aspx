@@ -64,7 +64,7 @@
     <asp:Label ID="lb1" runat="server"></asp:Label>
     <div id="silverlightControlHost"> 
       
-        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
+        <%--<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
 		  <param name="source" value="ClientBin/FbTracker.xap"/>
 		  <param name="onError" value="onSilverlightError" />
 		  <param name="background" value="white" />
@@ -74,7 +74,7 @@
 		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=3.0.40818.0" style="text-decoration:none">
  			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
 		  </a>
-	    </object>
+	    </object>--%>
      </div>
     </form>
 </body>

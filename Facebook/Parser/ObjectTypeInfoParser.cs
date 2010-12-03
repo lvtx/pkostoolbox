@@ -1,6 +1,9 @@
+#if SILVERLIGHT
+#else
 using Facebook.Entity;
-using System.Xml;
 using Facebook.Utility;
+#endif
+using System.Xml;
 
 namespace Facebook.Parser
 {
