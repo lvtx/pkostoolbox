@@ -63,7 +63,7 @@
     <form id="form1" runat="server" style="height:100%">
     <asp:Label ID="lb1" runat="server"></asp:Label>
     <div id="silverlightControlHost"> 
-      
+        <asp:Label ID="lbl1" runat="server"></asp:Label>
         <%--<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
 		  <param name="source" value="ClientBin/FbTracker.xap"/>
 		  <param name="onError" value="onSilverlightError" />
