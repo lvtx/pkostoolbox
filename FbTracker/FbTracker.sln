@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook", "..\Facebook\Fac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookAPI", "..\facebook-csharp-sdk-52cf249\facebook\FacebookAPI.csproj", "{1F538275-4C0C-4983-8D92-BFF2AA0E5FC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbTracker.Facebook", "FbTracker.Facebook\FbTracker.Facebook.csproj", "{938A8DF9-424E-49DF-AB79-2716B52051C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{1F538275-4C0C-4983-8D92-BFF2AA0E5FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F538275-4C0C-4983-8D92-BFF2AA0E5FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F538275-4C0C-4983-8D92-BFF2AA0E5FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{938A8DF9-424E-49DF-AB79-2716B52051C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{938A8DF9-424E-49DF-AB79-2716B52051C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{938A8DF9-424E-49DF-AB79-2716B52051C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{938A8DF9-424E-49DF-AB79-2716B52051C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

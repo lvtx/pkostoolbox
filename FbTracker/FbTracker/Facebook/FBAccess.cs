@@ -59,6 +59,7 @@ namespace FbTracker.Facebook
 //    this.token = qs["access_token"];
 //    }
 //}
+            
           
             string url = "https://graph.facebook.com/me?fields=id,name,email&access_token=" + "11321";
             //JsonObject myProfile = JsonObject.Parse(
