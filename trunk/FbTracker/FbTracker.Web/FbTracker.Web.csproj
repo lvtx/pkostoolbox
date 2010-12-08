@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facebook, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Components\FacebookToolKit\3.1.0\Facebook.dll</HintPath>
+      <HintPath>..\..\Components\Apache\log4net\1.2.10\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Entity" />
@@ -62,6 +62,9 @@
     <Content Include="fblogin.js" />
     <Content Include="FbTrackerTestPage.aspx" />
     <Content Include="FbTrackerTestPage.html" />
+    <Content Include="log4net.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Silverlight.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
