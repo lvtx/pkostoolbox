@@ -12,14 +12,16 @@ using System.Runtime.Serialization.Json;
 using System.Net;
 using FbTracker.Facebook;
 using System.Collections.Specialized;
-using Facebook.Schema;
+using FbTracker.Facebook.DTOs;
+using log4net;
 namespace FbTracker.Web
 {
     public partial class Default : System.Web.UI.Page
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Default));
         protected void Page_Load(object sender, EventArgs e)
-        {           
-
+        {
+            CommonUtils.ConfigureLogger();
             //FacebookSession _session = new IFrameCanvasSession("9a703a2552981903b1c9a431804af826", "989ae6e3f64e32d97fb7f40f6e33c7d9");
 
             //_session.Login();
@@ -30,7 +32,7 @@ namespace FbTracker.Web
             //sb.Append(string.Format("userId={0}, ", _session.UserId));
             //sb.Append("<param name=\"InitParams\" value=\"" + sb.ToString() + "\" > ");
             //paramInit.Text = sb.ToString();
-            
+            logger.Info("Page loading");
             FacebookApi fb = FacebookApi.Instance;
             fb.Connect();
             if (string.IsNullOrEmpty(fb.Token.Trim()))
@@ -39,16 +41,17 @@ namespace FbTracker.Web
             }
             else
             {
-                user currentUser = fb.CurrentUser;
-                Image img = new Image();
+                FbUser currentUser = fb.CurrentUser;
+                lbl1.Text = currentUser.uid.ToString();
+                //Image img = new Image();
                 //img.ImageUrl = currentUser.pic_square;
-                form1.Controls.Add(img);
-                fb.LoadFriends();
-                lbl1.Text = currentUser.pic;
-                if (fb.UserFriends.Count > 0)
-                {
-                    img.ImageUrl = fb.UserFriends.First().pic_square;
-                }
+                //form1.Controls.Add(img);
+                //fb.LoadFriends();
+                //
+                //if (fb.UserFriends.Count > 0)
+                //{
+                //    img.ImageUrl = fb.UserFriends.First().pic_square;
+                //}
             }
 
 
