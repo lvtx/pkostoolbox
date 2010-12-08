@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using Facebook.Rest;
-using Facebook.Schema;
-using Facebook.Session;
-using Facebook.Utility;
 using System.Net;
 
 namespace FbTracker.Facebook

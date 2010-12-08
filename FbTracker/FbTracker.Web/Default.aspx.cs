@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Json;
 using System.Net;
 using FbTracker.Facebook;
 using System.Collections.Specialized;
+using Facebook.Schema;
 namespace FbTracker.Web
 {
     public partial class Default : System.Web.UI.Page
@@ -29,7 +30,7 @@ namespace FbTracker.Web
             //sb.Append(string.Format("userId={0}, ", _session.UserId));
             //sb.Append("<param name=\"InitParams\" value=\"" + sb.ToString() + "\" > ");
             //paramInit.Text = sb.ToString();
-
+            
             FacebookApi fb = FacebookApi.Instance;
             fb.Connect();
             if (string.IsNullOrEmpty(fb.Token.Trim()))
@@ -38,7 +39,16 @@ namespace FbTracker.Web
             }
             else
             {
-                lbl1.Text = fb.Token;
+                user currentUser = fb.CurrentUser;
+                Image img = new Image();
+                //img.ImageUrl = currentUser.pic_square;
+                form1.Controls.Add(img);
+                fb.LoadFriends();
+                lbl1.Text = currentUser.pic;
+                if (fb.UserFriends.Count > 0)
+                {
+                    img.ImageUrl = fb.UserFriends.First().pic_square;
+                }
             }
 
 

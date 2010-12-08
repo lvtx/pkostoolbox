@@ -10,6 +10,9 @@ using System.Web;
 using System.IO;
 using Facebook.Session;
 using Facebook.Rest;
+using Facebook.Schema;
+using Facebook.Utility;
+using System.Reflection;
 
 namespace FbTracker.Facebook
 {
@@ -35,6 +38,10 @@ namespace FbTracker.Facebook
         string page_token = string.Empty;
         string callback_url = string.Empty;
         IFrameCanvasSession session;
+        IList<user> friends;
+
+        private static readonly ILog logger = LogManager.GetLogger(typeof(FacebookApi));
+        private static FacebookApi currentInstance;
 
         #region .Ctor
 
@@ -42,6 +49,10 @@ namespace FbTracker.Facebook
         {
             this.appKey = appKey;
             this.appSecret = appSecret;
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            path = Path.Combine(path, "log4net.config");
+            
+                
         }
 
         #endregion
@@ -68,13 +79,22 @@ namespace FbTracker.Facebook
         }
 
         public Api API { get; set; }
+
+        public user CurrentUser {  get; private set; }
+
+        
         
         #endregion
 
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(FacebookApi));
-        private static FacebookApi currentInstance;
 
+        private void GetUserInfoCallback(IList<user> users, object state, FacebookException e)
+        {
+            if (users != null)
+            {
+                friends.Union(users.AsEnumerable());
+            }
+        }
 
         public void Connect()
         {
@@ -84,41 +104,7 @@ namespace FbTracker.Facebook
             this.Token = API.Auth.CreateToken();
             API.AuthToken = this.token;
 
-            this.Token = API.Fql.Query("SELECT name FROM user WHERE uid = me() ");
- 
-            //string accessTokenUrl = string.Format("{0}?client_id={1}&redirect_uri={2}&client_secret={3}", page_token, this.appKey, callback_url, this.appSecret);
-            //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(accessTokenUrl);
-            //request.Method = "GET";
-            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-
-            //StreamReader sr = new StreamReader(response.GetResponseStream());
-            //string results = sr.ReadToEnd();
-            //sr.Close();
-            //NameValueCollection qs = HttpUtility.ParseQueryString(results);
-            //this.Token = results;
-            //return string.Empty;
-            //if (qs["auth_token"] == null)
-            //{
-            //    string other = results.Substring(results.IndexOf("href ="));
-            //    other = other.Substring(other.IndexOf("\"")+1);
-            //    other = other.Substring(0, other.IndexOf("\"") );
-            //    request = (HttpWebRequest)HttpWebRequest.Create(other);
-            //    response = (HttpWebResponse)request.GetResponse();
-
-
-            //    sr = new StreamReader(response.GetResponseStream());
-            //    results = sr.ReadToEnd();
-            //    sr.Close();
-            //    qs = HttpUtility.ParseQueryString(results);
-            //    return results;
-            //}
-            //else
-            //{
-            //    this.token = qs["auth_token"];
-            //    return string.Empty;
-            //}
-
+            CurrentUser = API.Users.GetInfo(this.session.UserId);
         }
 
         public static FacebookApi Instance
@@ -144,6 +130,26 @@ namespace FbTracker.Facebook
             }
         }
 
+        public void LoadFriends()
+        {
+            if (friends == null)
+            {
+                friends = new List<user>();
+            }
+            // API.Friends.GetAppUsersObjectsAsync(GetUserInfoCallback, null);
+            friends = API.Friends.GetAppUsersObjects();
+        }
+        public IList<user> UserFriends
+        {
+            get
+            {
+                if (friends == null)
+                {
+                    friends = new List<user>();
+                }
 
+                return friends;
+            }
+        }
     }
 }
