@@ -13,6 +13,7 @@ using Facebook.Rest;
 using Facebook.Schema;
 using Facebook.Utility;
 using System.Reflection;
+using FbTracker.Facebook.DTOs;
 
 namespace FbTracker.Facebook
 {
@@ -37,11 +38,12 @@ namespace FbTracker.Facebook
         string token = string.Empty;
         string page_token = string.Empty;
         string callback_url = string.Empty;
-        IFrameCanvasSession session;
+        FacebookSession session;
         IList<user> friends;
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(FacebookApi));
         private static FacebookApi currentInstance;
+        private ClientType facebookClientType = ClientType.Unkown;
 
         #region .Ctor
 
@@ -49,10 +51,7 @@ namespace FbTracker.Facebook
         {
             this.appKey = appKey;
             this.appSecret = appSecret;
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            path = Path.Combine(path, "log4net.config");
-            
-                
+            CommonUtils.ConfigureLogger();
         }
 
         #endregion
@@ -80,14 +79,30 @@ namespace FbTracker.Facebook
 
         public Api API { get; set; }
 
-        public user CurrentUser {  get; private set; }
+        public FbUser CurrentUser {  get; private set; }
 
-        
+        public ClientType FacebookClientType
+        {
+            get
+            {
+                if (facebookClientType == ClientType.Unkown)
+                {
+                    try
+                    {
+                        facebookClientType = (ClientType)Convert.ToInt32(ConfigurationManager.AppSettings["ClientType"]);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex);
+                    }
+                }
+                return facebookClientType;
+            }
+        }
         
         #endregion
 
-
-
+        
         private void GetUserInfoCallback(IList<user> users, object state, FacebookException e)
         {
             if (users != null)
@@ -96,15 +111,34 @@ namespace FbTracker.Facebook
             }
         }
 
+        /// <summary>
+        /// Connect to Facebook
+        /// </summary>
         public void Connect()
-        {
-            session = new IFrameCanvasSession(appKey, appSecret);
+        {            
+            logger.Debug(string.Format("Client type: {0}", FacebookClientType));
+            switch (FacebookClientType)
+            {
+                case ClientType.InsideIFrame:
+                    session = new IFrameCanvasSession(appKey, appSecret);                    
+                    break;
+                case ClientType.Outside:
+                    session = new ConnectSession(appKey, appSecret); //DesktopSession(appKey, false);
+                    session.SessionSecret = this.sessionSecret;
+                    session.SessionKey = this.sessionKey;
+                    session.ApplicationSecret = this.sessionSecret;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+           // DesktopSession session2 = new DesktopSession(appKey, false);
+
             session.Login();
             API = new Api(session);
             this.Token = API.Auth.CreateToken();
             API.AuthToken = this.token;
 
-            CurrentUser = API.Users.GetInfo(this.session.UserId);
+            CurrentUser = FbUser.UserInfo(this.session.UserId);//API.Users.GetInfo(this.session.UserId);
         }
 
         public static FacebookApi Instance
@@ -113,7 +147,6 @@ namespace FbTracker.Facebook
             {
                 if (currentInstance == null)
                 {
-
                     if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["appKey"]) && string.IsNullOrEmpty(ConfigurationManager.AppSettings["appSecret"]))
                     {
                         throw new Exception("appKey and appSecret settions is not set");
@@ -137,7 +170,7 @@ namespace FbTracker.Facebook
                 friends = new List<user>();
             }
             // API.Friends.GetAppUsersObjectsAsync(GetUserInfoCallback, null);
-            friends = API.Friends.GetAppUsersObjects();
+            //friends = API.Friends.GetAppUsersObjects();
         }
         public IList<user> UserFriends
         {
@@ -147,7 +180,7 @@ namespace FbTracker.Facebook
                 {
                     friends = new List<user>();
                 }
-
+                
                 return friends;
             }
         }
