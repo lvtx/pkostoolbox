@@ -14,6 +14,7 @@ using FbTracker.Facebook;
 using System.Collections.Specialized;
 using FbTracker.Facebook.DTOs;
 using log4net;
+using System.Configuration;
 namespace FbTracker.Web
 {
     public partial class Default : System.Web.UI.Page
@@ -32,29 +33,28 @@ namespace FbTracker.Web
             //sb.Append(string.Format("userId={0}, ", _session.UserId));
             //sb.Append("<param name=\"InitParams\" value=\"" + sb.ToString() + "\" > ");
             //paramInit.Text = sb.ToString();
+            HttpCookie c = Request.Cookies["fbs_151279721555255"];
+
             logger.Info("Page loading");
-            FacebookApi fb = FacebookApi.Instance;
-            fb.Connect();
-            if (string.IsNullOrEmpty(fb.Token.Trim()))
-            {
-                lbl1.Text = "hola world";
-            }
-            else
-            {
-                FbUser currentUser = fb.CurrentUser;
-                lbl1.Text = currentUser.uid.ToString();
-                //Image img = new Image();
-                //img.ImageUrl = currentUser.pic_square;
-                //form1.Controls.Add(img);
-                //fb.LoadFriends();
-                //
-                //if (fb.UserFriends.Count > 0)
-                //{
-                //    img.ImageUrl = fb.UserFriends.First().pic_square;
-                //}
-            }
+           // FacebookApi fb = FacebookApi.Instance;
+            //fb.Connect();
+            //if (string.IsNullOrEmpty(fb.Token.Trim()))
+            //{
+            //    lbl1.Text = "hola world";
+            //}
+            //else
+            //{
+            //    FbUser currentUser = fb.CurrentUser;
+            //    lbl1.Text = currentUser.uid.ToString();
+                
+            //}
 
 
+        }
+
+        protected string getAppId()
+        {
+            return ConfigurationManager.AppSettings["client_id"].Trim();
         }
         
     }
