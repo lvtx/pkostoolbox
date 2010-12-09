@@ -120,21 +120,26 @@ namespace FbTracker.Facebook
             switch (FacebookClientType)
             {
                 case ClientType.InsideIFrame:
-                    session = new IFrameCanvasSession(appKey, appSecret);                    
+                    session = new IFrameCanvasSession(appKey, appSecret); 
+            session.Login();                   
                     break;
                 case ClientType.Outside:
                     session = new ConnectSession(appKey, appSecret); //DesktopSession(appKey, false);
                     session.SessionSecret = this.sessionSecret;
                     session.SessionKey = this.sessionKey;
                     session.ApplicationSecret = this.sessionSecret;
+                    if ((session as ConnectSession).IsConnected())
+                    {
+                        logger.Info("Is connected");
+                    }
                     break;
                 default:
                     throw new NotImplementedException();
             }
            // DesktopSession session2 = new DesktopSession(appKey, false);
 
-            session.Login();
             API = new Api(session);
+            //API.Session.UserId = ;
             this.Token = API.Auth.CreateToken();
             API.AuthToken = this.token;
 
