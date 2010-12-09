@@ -124,9 +124,7 @@ namespace FbTracker.Facebook
             session.Login();                   
                     break;
                 case ClientType.Outside:
-                    session = new ConnectSession(appKey, appSecret); //DesktopSession(appKey, false);
-                    session.SessionSecret = this.sessionSecret;
-                    session.SessionKey = this.sessionKey;
+                    session = new ConnectSession(appKey, appSecret); //DesktopSession(appKey, false);    
                     session.ApplicationSecret = this.sessionSecret;
                     if ((session as ConnectSession).IsConnected())
                     {
@@ -137,11 +135,14 @@ namespace FbTracker.Facebook
                     throw new NotImplementedException();
             }
            // DesktopSession session2 = new DesktopSession(appKey, false);
-
+            
+            session.Login();
             API = new Api(session);
-            //API.Session.UserId = ;
-            this.Token = API.Auth.CreateToken();
-            API.AuthToken = this.token;
+            API.Session.UserId = 726270083;
+            
+            //this.Token = API.Auth.CreateToken();
+            //API.AuthToken = this.token;
+            
 
             CurrentUser = FbUser.UserInfo(this.session.UserId);//API.Users.GetInfo(this.session.UserId);
         }

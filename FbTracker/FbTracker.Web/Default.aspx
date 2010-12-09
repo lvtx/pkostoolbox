@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
 <head id="Head1" runat="server">
     <title>FbTracker</title>
     <style type="text/css">
@@ -58,10 +58,15 @@
     </script>
         <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
     <script type="text/javascript" src="fblogin.js"></script>
+    
+
 </head>
 <body>
+    <div id="fb-root"></div>
+    
+
     <form id="form1" runat="server" style="height:100%">
-    <asp:Label ID="lb1" runat="server"></asp:Label>
+        <fb:login-button onlogin="window.location.reload()" ></fb:login-button>
     <div id="silverlightControlHost"> 
         <asp:Label ID="lbl1" runat="server"></asp:Label>
         <%--<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
@@ -78,4 +83,7 @@
      </div>
     </form>
 </body>
+<script type="text/javascript">
+    FB.init("9a703a2552981903b1c9a431804af826", "xd_receiver.htm");  
+</script> 
 </html>
