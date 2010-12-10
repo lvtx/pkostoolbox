@@ -14,6 +14,7 @@ using Facebook.Schema;
 using Facebook.Utility;
 using System.Reflection;
 using FbTracker.Facebook.DTOs;
+using System.Xml;
 
 namespace FbTracker.Facebook
 {
@@ -28,6 +29,7 @@ namespace FbTracker.Facebook
 
     public class FacebookApi
     {
+        string appId;
         string appKey;
         string appSecret;
         string sessionKey;
@@ -43,12 +45,15 @@ namespace FbTracker.Facebook
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(FacebookApi));
         private static FacebookApi currentInstance;
-        private ClientType facebookClientType = ClientType.Unkown;
+        private static ClientType facebookClientType = ClientType.Unkown;
+        private Api _facebookApi;
 
         #region .Ctor
 
-        protected FacebookApi(string appKey, string appSecret)
+        protected FacebookApi(string client_id, string appKey, string appSecret)
         {
+            logger.Debug(string.Format("client_id: {0} \nAppKey: {1} \nAppSecret:{2}", client_id, appKey, appSecret));
+            this.appId = client_id;
             this.appKey = appKey;
             this.appSecret = appSecret;
             CommonUtils.ConfigureLogger();
@@ -77,11 +82,14 @@ namespace FbTracker.Facebook
             set { this.token = value; }
         }
 
-        public Api API { get; set; }
+        public Api API
+        {
+            get { return _facebookApi; }
+        }
 
         public FbUser CurrentUser {  get; private set; }
 
-        public ClientType FacebookClientType
+        public static ClientType FacebookClientType
         {
             get
             {
@@ -114,38 +122,44 @@ namespace FbTracker.Facebook
         /// <summary>
         /// Connect to Facebook
         /// </summary>
-        public void Connect()
-        {            
+        public bool Connect(HttpCookie facebookCockie = null)
+        {
             logger.Debug(string.Format("Client type: {0}", FacebookClientType));
             switch (FacebookClientType)
             {
                 case ClientType.InsideIFrame:
-                    session = new IFrameCanvasSession(appKey, appSecret); 
-            session.Login();                   
+                    session = new IFrameCanvasSession(appKey, appSecret);
+                    session.Login();
+                    _facebookApi = new Api(session);
+                    this.Token = API.Auth.CreateToken();
+                    _facebookApi.AuthToken = this.token;                    
+                    session.Login();
                     break;
                 case ClientType.Outside:
-                    session = new ConnectSession(appKey, appSecret); //DesktopSession(appKey, false);    
-                    session.ApplicationSecret = this.sessionSecret;
-                    if ((session as ConnectSession).IsConnected())
+                    if (facebookCockie == null)
                     {
-                        logger.Info("Is connected");
+                        return false;
+                    }
+                    else
+                    {
+                        logger.Debug(string.Format("Coockie value:\n{0}", facebookCockie.Value));
+                        session = new ConnectSession(appKey, appSecret);
+                        _facebookApi = new Api(session);
+                        _facebookApi.Session.SessionSecret = facebookCockie["secret"];
+                        _facebookApi.Session.SessionKey = facebookCockie["session_key"];
+                        _facebookApi.Session.UserId = Convert.ToInt64(facebookCockie["uid"].Replace('"', ' ').Trim());
+                        _facebookApi.AuthToken = facebookCockie["access_token"];
                     }
                     break;
                 default:
                     throw new NotImplementedException();
             }
-           // DesktopSession session2 = new DesktopSession(appKey, false);
-            
-            session.Login();
-            API = new Api(session);
-            API.Session.UserId = 726270083;
-            
-            //this.Token = API.Auth.CreateToken();
-            //API.AuthToken = this.token;
-            
 
-            CurrentUser = FbUser.UserInfo(this.session.UserId);//API.Users.GetInfo(this.session.UserId);
+            CurrentUser = FbUser.UserInfo(session.UserId);
+            return true;
         }
+
+        
 
         public static FacebookApi Instance
         {
@@ -157,11 +171,12 @@ namespace FbTracker.Facebook
                     {
                         throw new Exception("appKey and appSecret settions is not set");
                     }
+                    string appId = ConfigurationManager.AppSettings["client_id"];                       
                     string appKey = ConfigurationManager.AppSettings["appKey"];
                     string appSecret = ConfigurationManager.AppSettings["appSecret"];
                     string accessToken = ConfigurationManager.AppSettings["PAGE_TOKEN"];
                     string callbackUrl = ConfigurationManager.AppSettings["CALLBACK_URL"];
-                    currentInstance = new FacebookApi(appKey, appSecret);
+                    currentInstance = new FacebookApi(appId, appKey, appSecret);
                     currentInstance.page_token = accessToken;
                     currentInstance.Callback_url = callbackUrl;
                 }
@@ -178,17 +193,32 @@ namespace FbTracker.Facebook
             // API.Friends.GetAppUsersObjectsAsync(GetUserInfoCallback, null);
             //friends = API.Friends.GetAppUsersObjects();
         }
-        public IList<user> UserFriends
+
+        public XmlDocument FqlQuery(string query)
         {
-            get
-            {
-                if (friends == null)
+            try
+            {                
+                XmlDocument doc = null;
+                logger.Debug(string.Format("FQL Query: {0}", query));
+                if (!string.IsNullOrEmpty(query.Trim()))
                 {
-                    friends = new List<user>();
+                    string res = _facebookApi.Fql.Query(query);
+                    logger.Debug(string.Format("FQL Response: {0}", res));
+                    if (!string.IsNullOrEmpty(res))
+                    {
+                        doc = new XmlDocument();
+                        doc.LoadXml(res);
+                    }
                 }
-                
-                return friends;
+                return doc;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return null;
             }
         }
+    
+
     }
 }
