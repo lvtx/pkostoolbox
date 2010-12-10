@@ -56,19 +56,28 @@
             throw new Error(errMsg);
         }
     </script>
-        <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
-    <script type="text/javascript" src="fblogin.js"></script>
+    <%--    <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+    <script type="text/javascript" src="fblogin.js"></script>--%>
     
-
+    
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script language="javascript" type="text/javascript">
+    function openImages(pageUrl) {
+        //var url = "WFImages.aspx?Instrument_ID=" + instrumentId + "&Instrument_Number=" + instrumentNumber;
+        window.open(pageUrl, "Images", "width=650, height=400, scrollbars=yes, resizable=yes, left=200, top=100");
+    }
+    </script>
 </head>
-<body>
-    <div id="fb-root"></div>
+<body>   
     
-
     <form id="form1" runat="server" style="height:100%">
-        <fb:login-button onlogin="window.location.reload()" ></fb:login-button>
+    
+    <div id="fb-root"></div>
+    <asp:Panel ID="fbLogin" runat="server">
+        <fb:login-button onlogin="window.location.reload()"  >Login with facebook</fb:login-button>
+    </asp:Panel>
     <div id="silverlightControlHost"> 
-        <asp:Label ID="lbl1" runat="server"></asp:Label>
+        <asp:Label ID="lblStatus" runat="server"></asp:Label>
         <%--<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
 		  <param name="source" value="ClientBin/FbTracker.xap"/>
 		  <param name="onError" value="onSilverlightError" />
@@ -83,7 +92,33 @@
      </div>
     </form>
 </body>
-<script type="text/javascript">
-    FB.init("9a703a2552981903b1c9a431804af826", "xd_receiver.htm");  
-</script> 
+
+<script>
+    FB.init({
+        appId: '161924267186124',
+        status: false, // check login status
+        cookie: false, // enable cookies to allow the server to access the session
+        xfbml: true  // parse XFBML
+    });
+
+    FB.Event.subscribe('auth.login', function (response) {
+        window.location.reload();
+        });
+
+//    window.fbAsyncInit = function () {
+//        FB.init({ appId: '161924267186124', status: true, cookie: true,
+//            xfbml: true
+//        });
+//    };
+//    (function () {
+//        var e = document.createElement('script'); e.async = true;
+//        e.src = document.location.protocol +
+//      '//connect.facebook.net/en_US/all.js';
+//        document.getElementById('fb-root').appendChild(e);
+//    } ());
+
+
+
+</script>
+
 </html>

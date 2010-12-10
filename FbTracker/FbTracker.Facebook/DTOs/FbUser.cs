@@ -2,6 +2,7 @@
 using System.Net;
 using log4net;
 using Facebook.Rest;
+using System.Xml;
 
 namespace FbTracker.Facebook.DTOs
 {
@@ -9,6 +10,8 @@ namespace FbTracker.Facebook.DTOs
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(FbUser));
         private Api api;
+
+
         #region Properties 
         ///	<sumary>	
         ///	The user ID of the user being queried.	
@@ -255,7 +258,20 @@ namespace FbTracker.Facebook.DTOs
         {
             this.uid = uid;
             api = FacebookApi.Instance.API;
-            string res = api.Fql.Query("select * from user where uid = " + uid.ToString());
+            string qry = "SELECT uid, name, pic_square FROM user WHERE uid = " + uid.ToString();
+            XmlDocument doc = FacebookApi.Instance.FqlQuery(qry);
+            XmlElement nodes = doc.GetElementsByTagName("user")[0] as XmlElement;
+            
+            foreach (XmlElement element in nodes.ChildNodes)
+            {
+                logger.Debug(element.Name);
+                switch (element.Name.Trim())
+                {
+                    case "name": name = element.Value;
+                        break;
+                }
+            }
+
         }
 
         public static FbUser UserInfo(long uid)
