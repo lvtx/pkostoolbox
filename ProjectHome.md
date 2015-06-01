@@ -1,0 +1,1 @@
+PkosToolBox is a toolbox for facebook and gmail contacts, it allows to synchronize both, maintaining the picture, phones and all about friends
